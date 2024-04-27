@@ -12,31 +12,42 @@ class CreatePredefinedModels < ActiveRecord::Migration[7.1]
     create_table :users do |t|
       t.string :first_name
       t.string :last_name
-      t.references :company, index: true
+      t.string :password_digest
+      t.string :email
+      t.belongs_to :company
 
       t.timestamps
     end
 
     create_table :products do |t|
-      t.references :company, index: true
+      t.string :name
+      t.belongs_to :company
+      t.float :price
+      t.integer :stock, default: 0
+      t.belongs_to :vendor
+      t.belongs_to :warehouse
 
       t.timestamps
     end
 
     create_table :warehouses do |t|
-      t.references :company, index: true
+      t.belongs_to :company
+      t.string :name
 
       t.timestamps
     end
 
     create_table :vendors do |t|
-      t.references :company, index: true
+      t.belongs_to :company
+      t.string :name
 
       t.timestamps
     end
 
     create_table :sale_histories do |t|
-      t.references :company, index: true
+      t.belongs_to :company
+      t.belongs_to :product
+      t.float :price
 
       t.timestamps
     end

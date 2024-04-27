@@ -38,6 +38,8 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 group :development do
@@ -49,3 +51,13 @@ end
 gem "sidekiq", "~> 7.2"
 
 gem "roo", "~> 2.10"
+
+gem "byebug", "~> 11.1"
+
+gem 'bcrypt', '~> 3.1', '>= 3.1.12'
+
+gem 'jwt', '~> 2.5'
+
+gem 'rack-cors'
+
+gem 'active_model_serializers', '~> 0.10.12'
