@@ -24,11 +24,11 @@ class TestData
     #test_company.sale_histories.create!(product: black_tshirt, price: 10)
     #test_company.sale_histories.create!(product: pink_tshirt, price: 20)
 
-    party_jeans.purchase_orders.create!(company: test_company, supplier: vendor_1, order_date: Date.today, arrival_date: Date.today + 7, status: 0).products_purchase_orders.create!(product: party_jeans, quantity: 10)
+    party_jeans.purchase_orders.create!(company: test_company, supplier: vendor_1, order_date: Date.today, arrival_date: Date.today + 7, status: 0).products_purchase_orders.first.update(quantity: 10)
 
-    casual_jeans.purchase_orders.create!(company: test_company, supplier: vendor_2, order_date: Date.today, arrival_date: Date.today + 7, status: 0).products_purchase_orders.create!(product: casual_jeans, quantity: 10)
+    casual_jeans.purchase_orders.create!(company: test_company, supplier: vendor_2, order_date: Date.today, arrival_date: Date.today + 7, status: 0).products_purchase_orders.first.update(quantity: 10)
 
-    pink_tshirt.purchase_orders.create!(company: test_company, supplier: vendor_2, order_date: Date.today, arrival_date: Date.today + 7, status: 0).products_purchase_orders.create!(product: pink_tshirt, quantity: 10)
+    pink_tshirt.purchase_orders.create!(company: test_company, supplier: vendor_2, order_date: Date.today, arrival_date: Date.today + 7, status: 0).products_purchase_orders.first.update(quantity: 20)
 
   end
 end

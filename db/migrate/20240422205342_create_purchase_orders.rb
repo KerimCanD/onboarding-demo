@@ -10,10 +10,14 @@ class CreatePurchaseOrders < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    create_join_table :products, :purchase_orders do |t|
+    create_table :products_purchase_orders do |t|
+      t.belongs_to :product
+      t.belongs_to :purchase_order
       t.index [:product_id, :purchase_order_id]
       t.index [:purchase_order_id, :product_id]
       t.integer :quantity
+
+      t.timestamps
     end
     
     

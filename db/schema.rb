@@ -23,14 +23,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_211351) do
     t.index ["company_id"], name: "index_bundles_on_company_id"
   end
 
-  create_table "bundles_products", id: false, force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.bigint "bundle_id", null: false
-    t.integer "quantity"
-    t.index ["bundle_id", "product_id"], name: "index_bundles_products_on_bundle_id_and_product_id"
-    t.index ["product_id", "bundle_id"], name: "index_bundles_products_on_product_id_and_bundle_id"
-  end
-
   create_table "companies", force: :cascade do |t|
     t.string "name"
     t.integer "lead_time"
@@ -54,12 +46,28 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_211351) do
     t.index ["warehouse_id"], name: "index_products_on_warehouse_id"
   end
 
-  create_table "products_purchase_orders", id: false, force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.bigint "purchase_order_id", null: false
+  create_table "products_bundles", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "bundle_id"
     t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bundle_id", "product_id"], name: "index_products_bundles_on_bundle_id_and_product_id"
+    t.index ["bundle_id"], name: "index_products_bundles_on_bundle_id"
+    t.index ["product_id", "bundle_id"], name: "index_products_bundles_on_product_id_and_bundle_id"
+    t.index ["product_id"], name: "index_products_bundles_on_product_id"
+  end
+
+  create_table "products_purchase_orders", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "purchase_order_id"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["product_id", "purchase_order_id"], name: "idx_on_product_id_purchase_order_id_5b6ba4b747"
+    t.index ["product_id"], name: "index_products_purchase_orders_on_product_id"
     t.index ["purchase_order_id", "product_id"], name: "idx_on_purchase_order_id_product_id_3423d8f5b9"
+    t.index ["purchase_order_id"], name: "index_products_purchase_orders_on_purchase_order_id"
   end
 
   create_table "purchase_orders", force: :cascade do |t|
