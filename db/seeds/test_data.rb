@@ -2,8 +2,8 @@ class TestData
   def self.create
     test_company = Company.create!(name: "Test Company", lead_time: 63, days_of_stock: 63, forecasting_days: 63) 
 
-    test_user = test_company.users.create!(first_name: "Kerim Can", last_name: "Dağtekin")
-    test_user = test_company.users.create!(first_name: "Burcu", last_name: "Muratoğlu")
+    test_user = test_company.users.create!(first_name: "Kerim Can", last_name: "Dağtekin", password: "123456", email: "kcan@example.com")
+    test_user = test_company.users.create!(first_name: "Burcu", last_name: "Muratoğlu", password: "123456", email: "burcu@example.com")
 
     warehouse_1 = test_company.warehouses.create!(name: "Warehouse 1")
     warehouse_2 = test_company.warehouses.create!(name: "Warehouse 2")
