@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  rescue_from ActiveRecord::RecordInvalid, with: :handle_invalid_record
   before_action :authorized
   
   def encode_token(payload)
@@ -27,6 +28,12 @@ class ApplicationController < ActionController::API
 
   def authorized
     render json: { message: 'Please log in' }, status: :unauthorized unless current_user.present?
+  end
+
+  private
+
+  def handle_invalid_record(e)
+    render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
   end
 
 end

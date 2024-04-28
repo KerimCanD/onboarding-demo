@@ -52,7 +52,7 @@ gem "sidekiq", "~> 7.2"
 
 gem "roo", "~> 2.10"
 
-gem "byebug", "~> 11.1"
+gem "byebug", "~> 11.1", groups: %i[ development test ]
 
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 

@@ -11,7 +11,10 @@ Rails.application.routes.draw do
   
   post "/users", to: "users#create"
   get "/users", to: "users#show"
-  post "/auth/login", to: "auth#login"
+  post "/login", to: "auth#login"
+  post "update_lead_time", to: "companies#update_lead_time"
+  post "update_forecasting_days", to: "companies#update_forecasting_days"
+  post "update_days_of_stock", to: "companies#update_days_of_stock"
 
   namespace :api do
     namespace :v1 do

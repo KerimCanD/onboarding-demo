@@ -11,5 +11,10 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+
+    def login(user, password = "password")
+      post "/login", params: { email: user.email, password: password }, as: :json
+      @token = response.parsed_body["token"]
+    end
   end
 end

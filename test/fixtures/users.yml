@@ -1,3 +1,9 @@
-one: {}
+one: 
+  email: "test@example.com"
+  first_name: "Kerim C3"
+  last_name: "Dagtekin"
+  company: one
+  password_digest: '<%= BCrypt::Password.create("password") %>'
+
 two: {}
 

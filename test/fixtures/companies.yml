@@ -1,0 +1,11 @@
+one:
+  name: Test Company
+  lead_time: 3
+  days_of_stock: 5
+  forecasting_days: 4
+
+two:
+  name: Fake Inc.
+  lead_time: 10
+  days_of_stock: 10
+  forecasting_days: 10
