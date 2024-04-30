@@ -6,6 +6,8 @@ class CreatePurchaseOrders < ActiveRecord::Migration[7.1]
       t.belongs_to :vendor, index: true #alias as supplier
       t.date :order_date
       t.date :arrival_date
+      t.string :shipping_method
+      t.float :tax_percent
       
       t.timestamps
     end

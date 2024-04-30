@@ -40,6 +40,9 @@ class CreatePredefinedModels < ActiveRecord::Migration[7.1]
     create_table :vendors do |t|
       t.belongs_to :company
       t.string :name
+      t.string :phone
+      t.string :address
+      t.string :zip
 
       t.timestamps
     end

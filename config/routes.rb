@@ -1,4 +1,7 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -15,6 +18,7 @@ Rails.application.routes.draw do
   post "update_lead_time", to: "companies#update_lead_time"
   post "update_forecasting_days", to: "companies#update_forecasting_days"
   post "update_days_of_stock", to: "companies#update_days_of_stock"
+  post "upload_pos", to: "upload#upload_pos"
 
   namespace :api do
     namespace :v1 do

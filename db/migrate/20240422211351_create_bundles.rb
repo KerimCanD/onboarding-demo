@@ -1,7 +1,7 @@
 class CreateBundles < ActiveRecord::Migration[7.1]
   def change
     create_table :bundles do |t|
-      t.belongs_to :company
+      t.belongs_to :company, index: true
       t.string :name
       t.float :price
 
