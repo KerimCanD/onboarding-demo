@@ -40,6 +40,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'bullet'
 end
 
 group :development do
@@ -47,17 +48,11 @@ group :development do
   # gem "spring"
 end
 
-
 gem "sidekiq", "~> 7.2"
-
 gem "roo", "~> 2.10"
-
 gem "byebug", "~> 11.1", groups: %i[ development test ]
-
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
-
 gem 'jwt', '~> 2.5'
-
 gem 'rack-cors'
-
 gem 'active_model_serializers', '~> 0.10.12'
+#gem "shrine", "~> 3.0"
