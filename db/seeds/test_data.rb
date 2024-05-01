@@ -11,8 +11,8 @@ class TestData
     warehouse_2 = test_company.warehouses.create(name: "Warehouse 2")
     warehouse_3 = test_company.warehouses.create(name: "Warehouse 3")
 
-    vendor_1 = test_company.vendors.create(name: "Vendor 1")
-    vendor_2 = test_company.vendors.create(name: "Vendor 2")
+    vendor_1 = test_company.vendors.create(name: "Vendor 1", phone: "1231231231231", address: "879 Hillview Drive", zip: "95131", city: "San Jose", country: "USA")
+    vendor_2 = test_company.vendors.create(name: "Vendor 2", phone: "4564564564564", address: "2419 Center Avenue", zip: "93721", city: "Fresno", country: "USA")
 
     party_jeans = test_company.products.create(name: "Party Jeans", price: 200, stock: 10, warehouse: warehouse_1, vendor: vendor_1)
     casual_jeans = test_company.products.create(name: "Casual Jeans", price: 100, stock: 10, warehouse: warehouse_1, vendor: vendor_2)
@@ -26,11 +26,9 @@ class TestData
     #test_company.sale_histories.create(product: black_tshirt, price: 10)
     #test_company.sale_histories.create(product: pink_tshirt, price: 20)
 
-    party_jeans.purchase_orders.create(company: test_company, supplier: vendor_1, order_date: Date.today, arrival_date: Date.today + 7, status: 0).products_purchase_orders.first.update(quantity: 10)
-
-    casual_jeans.purchase_orders.create(company: test_company, supplier: vendor_2, order_date: Date.today, arrival_date: Date.today + 7, status: 0).products_purchase_orders.first.update(quantity: 10)
-
-    pink_tshirt.purchase_orders.create(company: test_company, supplier: vendor_2, order_date: Date.today, arrival_date: Date.today + 7, status: 0).products_purchase_orders.first.update(quantity: 20)
+    PurchaseOrder.create(company: test_company, supplier: vendor_1, order_date: Date.today, arrival_date: Date.today + 7, status: 0).add_product(party_jeans, 10)
+    PurchaseOrder.create(company: test_company, supplier: vendor_2, order_date: Date.today, arrival_date: Date.today + 7, status: 0).add_product(casual_jeans, 10)  
+    PurchaseOrder.create(company: test_company, supplier: vendor_2, order_date: Date.today, arrival_date: Date.today + 7, status: 0).add_product(white_tshirt, 20)
 
   end
 end

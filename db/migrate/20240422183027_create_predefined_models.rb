@@ -43,6 +43,8 @@ class CreatePredefinedModels < ActiveRecord::Migration[7.1]
       t.string :phone
       t.string :address
       t.string :zip
+      t.string :city
+      t.string :country
 
       t.timestamps
     end

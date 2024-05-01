@@ -139,6 +139,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_211351) do
     t.string "phone"
     t.string "address"
     t.string "zip"
+    t.string "city"
+    t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_vendors_on_company_id"

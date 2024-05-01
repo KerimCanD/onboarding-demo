@@ -1,4 +1,5 @@
 class Company < ApplicationRecord
+  has_one_attached :po_records_file
   has_many :bundles, dependent: :destroy
   has_many :users, dependent: :destroy
   has_many :products, dependent: :destroy
