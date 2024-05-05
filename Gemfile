@@ -41,6 +41,7 @@ group :development, :test do
   gem "better_errors"
   gem "binding_of_caller"
   gem 'bullet'
+  gem 'rails-erd'
 end
 
 group :development do
@@ -55,5 +56,6 @@ gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 gem 'jwt', '~> 2.5'
 gem 'rack-cors'
 gem 'active_model_serializers', '~> 0.10.12'
-
 gem "foreman", "~> 0.88.1"
+
+gem "rswag", "~> 2.13"
