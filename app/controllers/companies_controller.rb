@@ -13,13 +13,6 @@ class CompaniesController < ApplicationController
     @company.update(forecasting_days: params[:forecasting_days]) ? (render json: @company) : (render json: { errors: @company.errors.full_messages }, status: :unprocessable_entity)
   end
 
-  # GET /companies/1
-  def show
-    render json: @company
-  end
-
-
-
   private
     def set_company
       @company = @user.company
