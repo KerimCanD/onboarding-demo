@@ -53,24 +53,35 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_211351) do
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
-    t.integer "lead_time"
-    t.integer "days_of_stock"
-    t.integer "forecasting_days"
+    t.integer "default_lead_time"
+    t.integer "default_days_of_stock"
+    t.integer "default_forecasting_days"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "landed_costs", force: :cascade do |t|
+    t.bigint "purchase_order_id"
+    t.float "cost"
+    t.integer "cost_type"
+    t.index ["purchase_order_id"], name: "index_landed_costs_on_purchase_order_id"
   end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.bigint "company_id"
-    t.float "price"
     t.integer "stock", default: 0
-    t.bigint "vendor_id"
+    t.bigint "supplier_id"
     t.bigint "warehouse_id"
+    t.string "sku"
+    t.string "vendor"
+    t.integer "days_of_stock"
+    t.integer "lead_time"
+    t.integer "forecasting_days"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_products_on_company_id"
-    t.index ["vendor_id"], name: "index_products_on_vendor_id"
+    t.index ["supplier_id"], name: "index_products_on_supplier_id"
     t.index ["warehouse_id"], name: "index_products_on_warehouse_id"
   end
 
@@ -90,6 +101,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_211351) do
     t.bigint "product_id"
     t.bigint "purchase_order_id"
     t.integer "quantity"
+    t.float "unit_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id", "purchase_order_id"], name: "idx_on_product_id_purchase_order_id_5b6ba4b747"
@@ -101,15 +113,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_211351) do
   create_table "purchase_orders", force: :cascade do |t|
     t.bigint "company_id"
     t.integer "status"
-    t.bigint "vendor_id"
+    t.bigint "supplier_id"
     t.date "order_date"
     t.date "arrival_date"
-    t.string "shipping_method"
-    t.float "tax_percent"
+    t.integer "shipping_method"
+    t.bigint "warehouse_id"
+    t.string "tracking_code"
+    t.integer "currency"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_purchase_orders_on_company_id"
-    t.index ["vendor_id"], name: "index_purchase_orders_on_vendor_id"
+    t.index ["supplier_id"], name: "index_purchase_orders_on_supplier_id"
+    t.index ["warehouse_id"], name: "index_purchase_orders_on_warehouse_id"
   end
 
   create_table "sale_histories", force: :cascade do |t|
@@ -122,6 +137,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_211351) do
     t.index ["product_id"], name: "index_sale_histories_on_product_id"
   end
 
+  create_table "suppliers", force: :cascade do |t|
+    t.bigint "company_id"
+    t.string "name"
+    t.string "email"
+    t.string "phone"
+    t.string "address"
+    t.string "tax_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_suppliers_on_company_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -131,19 +158,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_211351) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_users_on_company_id"
-  end
-
-  create_table "vendors", force: :cascade do |t|
-    t.bigint "company_id"
-    t.string "name"
-    t.string "phone"
-    t.string "address"
-    t.string "zip"
-    t.string "city"
-    t.string "country"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_vendors_on_company_id"
   end
 
   create_table "warehouses", force: :cascade do |t|

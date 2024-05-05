@@ -2,7 +2,7 @@ class TestData
 
   #to-do: turn create to create!
   def self.create
-    test_company = Company.create(name: "Test Company", lead_time: 63, days_of_stock: 63, forecasting_days: 63) 
+    test_company = Company.create(name: "Test Company", default_lead_time: 63, default_days_of_stock: 63, default_forecasting_days: 63) 
 
     test_user = test_company.users.create(first_name: "Kerim Can", last_name: "Dağtekin", password: "123456", email: "kcan@example.com")
     test_user = test_company.users.create(first_name: "Burcu", last_name: "Muratoğlu", password: "123456", email: "burcu@example.com")
@@ -11,24 +11,19 @@ class TestData
     warehouse_2 = test_company.warehouses.create(name: "Warehouse 2")
     warehouse_3 = test_company.warehouses.create(name: "Warehouse 3")
 
-    vendor_1 = test_company.vendors.create(name: "Vendor 1", phone: "1231231231231", address: "879 Hillview Drive", zip: "95131", city: "San Jose", country: "USA")
-    vendor_2 = test_company.vendors.create(name: "Vendor 2", phone: "4564564564564", address: "2419 Center Avenue", zip: "93721", city: "Fresno", country: "USA")
 
-    party_jeans = test_company.products.create(name: "Party Jeans", price: 200, stock: 10, warehouse: warehouse_1, vendor: vendor_1)
-    casual_jeans = test_company.products.create(name: "Casual Jeans", price: 100, stock: 10, warehouse: warehouse_1, vendor: vendor_2)
-    white_tshirt = test_company.products.create(name: "Basic White T-Shirt", price: 50, stock: 50, warehouse: warehouse_2, vendor: vendor_2)
-    black_tshirt = test_company.products.create(name: "Basic Black T-Shirt", price: 50, stock: 40, warehouse: warehouse_2, vendor: vendor_2)
-    pink_tshirt = test_company.products.create(name: "Basic Pink T-Shirt", price: 60, stock: 5, warehouse: warehouse_3, vendor: vendor_1)
+    supplier_1 = test_company.suppliers.create(name: "supplier 1", phone: "1231231231231", address: "879 Hillview Drive", email: "location1@example.com")
+    supplier_2 = test_company.suppliers.create(name: "supplier 2", phone: "4564564564564", address: "2419 Center Avenue", email: "location2@example.com")
 
-    #test_company.sale_histories.create(product: party_jeans, price: 100)
-    #test_company.sale_histories.create(product: casual_jeans, price: 50)
-    #test_company.sale_histories.create(product: white_tshirt, price: 10)
-    #test_company.sale_histories.create(product: black_tshirt, price: 10)
-    #test_company.sale_histories.create(product: pink_tshirt, price: 20)
+    party_jeans = test_company.products.create(name: "Party Jeans", stock: 10, warehouse: warehouse_1, supplier: supplier_1, sku: "product1")
+    casual_jeans = test_company.products.create(name: "Casual Jeans", stock: 10, warehouse: warehouse_1, supplier: supplier_2, sku: "product2")
+    white_tshirt = test_company.products.create(name: "Basic White T-Shirt",stock: 50, warehouse: warehouse_2, supplier: supplier_2, sku: "product3")
+    black_tshirt = test_company.products.create(name: "Basic Black T-Shirt",stock: 40, warehouse: warehouse_2, supplier: supplier_2, sku: "product4")
+    pink_tshirt = test_company.products.create(name: "Basic Pink T-Shirt",stock: 5, warehouse: warehouse_3, supplier: supplier_1, sku: "product5")
 
-    PurchaseOrder.create(company: test_company, supplier: vendor_1, order_date: Date.today, arrival_date: Date.today + 7, status: 0).add_product(party_jeans, 10)
-    PurchaseOrder.create(company: test_company, supplier: vendor_2, order_date: Date.today, arrival_date: Date.today + 7, status: 0).add_product(casual_jeans, 10)  
-    PurchaseOrder.create(company: test_company, supplier: vendor_2, order_date: Date.today, arrival_date: Date.today + 7, status: 0).add_product(white_tshirt, 20)
+    PurchaseOrder.create!(company: test_company, supplier: supplier_1, order_date: Date.today, arrival_date: Date.today + 7, status: 0, warehouse: warehouse_1, shipping_method: "sea", currency: "usd").add_product(party_jeans, 150, 10).add_product(pink_tshirt, 5, 20)
+    PurchaseOrder.create!(company: test_company, supplier: supplier_2, order_date: Date.today, arrival_date: Date.today + 7, status: 0, warehouse: warehouse_2, shipping_method: "air", currency: "usd").add_product(casual_jeans, 200, 10)
+    PurchaseOrder.create!(company: test_company, supplier: supplier_2, order_date: Date.today, arrival_date: Date.today + 7, status: 0, warehouse: warehouse_3, shipping_method: "road", currency: "usd").add_product(white_tshirt, 5, 20).add_product(black_tshirt, 5, 30)
 
   end
 end

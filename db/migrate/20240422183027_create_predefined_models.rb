@@ -2,9 +2,9 @@ class CreatePredefinedModels < ActiveRecord::Migration[7.1]
   def change
     create_table :companies do |t|
       t.string :name
-      t.integer :lead_time
-      t.integer :days_of_stock
-      t.integer :forecasting_days
+      t.integer :default_lead_time
+      t.integer :default_days_of_stock
+      t.integer :default_forecasting_days
 
       t.timestamps
     end
@@ -22,10 +22,14 @@ class CreatePredefinedModels < ActiveRecord::Migration[7.1]
     create_table :products do |t|
       t.string :name
       t.belongs_to :company
-      t.float :price
       t.integer :stock, default: 0
-      t.belongs_to :vendor
+      t.belongs_to :supplier
       t.belongs_to :warehouse
+      t.string :sku
+      t.string :vendor
+      t.integer :days_of_stock
+      t.integer :lead_time
+      t.integer :forecasting_days
 
       t.timestamps
     end
@@ -37,17 +41,18 @@ class CreatePredefinedModels < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    create_table :vendors do |t|
+    create_table :suppliers do |t|
       t.belongs_to :company
       t.string :name
+      t.string :email
       t.string :phone
       t.string :address
-      t.string :zip
-      t.string :city
-      t.string :country
+      t.string :tax_number
 
       t.timestamps
     end
+
+  
 
     create_table :sale_histories do |t|
       t.belongs_to :company

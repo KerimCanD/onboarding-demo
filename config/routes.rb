@@ -30,7 +30,7 @@ Rails.application.routes.draw do
       resources :purchase_order
       resources :sale_history
       resources :user
-      resources :vendor
+      resources :supplier
       resources :warehouse
     end
   end
